@@ -1,6 +1,7 @@
 package com.test;
 
 import com.pojo.Book ;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.Scanner;
 
@@ -20,10 +21,16 @@ public class BookTest {
     char choiceFinal ;
     int numOfBooks;
     int count =0;
+    char delChoice;
+    int nullCount=0;
     do{
-        System.out.println("**** Welcome to Library management *****");
-        System.out.println("*********** Options available ***********");
-        System.out.println("*********** 1. Add Books ***********\n*********** 2. Update Books ***********\n ***********3. Delete Books ***********\n*********** 4. List all Books ***********");
+        System.out.println("**** Welcome to Library management ****");
+        System.out.println("*********** Options available *********");
+        System.out.println("*********** 1. Add Books **************");
+        System.out.println("*********** 2. Update Books ***********");
+        System.out.println("*********** 3. Delete Books ***********");
+        System.out.println("*********** 4. List all Books *********");
+        System.out.println("*********** 5. Search Books ***********");
         System.out.print("Enter your choice: ");
         OptionChoice = scan.nextInt();
 
@@ -46,18 +53,91 @@ public class BookTest {
                     System.out.println("********** Successful entry **********");
 
                 }
-                System.out.println("*********** Books added successfully!! ***********");
+                System.out.println("******* Books added successfully!! ******");
                 break;
+
+            case 3:
+                System.out.println("*********** 3. Delete Books ***********");
+                if(count>0){
+                    System.out.print("Enter Book ID: ");
+                    BookID =scan.nextInt();
+                    for(int i=0;i<count;i++){
+                        if(BookArray[i]!=null){
+                            if(BookID==BookArray[i].getBookID()){
+                                System.out.println("Book found");
+                                System.out.println("Do you really want to delete the book??\nIf yes enter 'y'or'Y'");
+                                delChoice =scan.next().charAt(0);
+                                if(delChoice=='y'||delChoice=='Y'){
+                                    BookArray[i]=null;
+                                    System.out.println("Book successfully deleted");
+                                }else if(delChoice=='n'||delChoice=='N'){
+                                    System.out.println("Operation aborted");
+                                }
+
+                            }
+                        }
+                        else{
+                            System.out.println("Books not available for deleting");
+                        }
+
+                    }
+                }
+                else{
+                    System.out.println("No books to delete");
+                }
+
+            break;
 
             case 4:
                 System.out.println("*********** 4. List All Books ***********");
-                for(int i=0; i<count;i++){
-                    System.out.println(BookArray[i]);
+                if(count >0){
+                    for(int i=0;i<count;i++){
+                        if(BookArray[i]==null){
+                            nullCount++;
+                        }
+                        if(nullCount>0){
+                            System.out.println("All books are deleted");
+                        }
+                    }
+                    for(int i=0; i<count;i++){
+
+                        if(BookArray[i]!=null){
+                            System.out.println(BookArray[i]);
+                        }
+
+                    }
                 }
+                else{
+                    System.out.println("Book list is empty");
+                }
+            break;
+            case 5:
+                System.out.println("*********** 5. Search Books ***********");
+                if(count!=0){
+                    System.out.print("Enter book ID: ");
+                    BookID = scan.nextInt();
+                    for(int i=0;i<count;i++){
+                        if(BookID ==BookArray[i].getBookID()){
+                            System.out.println("Book found");
+                            System.out.println(BookArray[i]);
+                        }
+                        else{
+                            System.out.println("Book ID not found please enter valid book ID");
+                        }
+                    }
+                }
+                else{
+                    System.out.println("No books are here to search");
+                }
+
                 break;
+            /*default:
+                System.out.println("Please provide valid input");*/
         }//Switch case closed
         //Final choice if you want to continue or not
+        System.out.println("---------------------------------------------");
         System.out.println("Do you want to continue if yes enter 'y'or 'Y' \n Press anything else to terminate");
+        System.out.println("---------------------------------------------");
         choiceFinal = scan.next().charAt(0);
     }while(choiceFinal =='Y'||choiceFinal=='y');
     }
