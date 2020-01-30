@@ -41,6 +41,7 @@ public class BookTest {
                     System.out.print("Enter number of books you want to add: ");
                     numOfBooks = scan.nextInt();
                     for (int i = 0; i < numOfBooks; i++) {
+                        System.out.println("Enter book no. "+(i+1));
                         System.out.print("Enter Book ID: ");
                         BookID = scan.nextInt();
                         System.out.print("Enter Book Name: ");
@@ -55,6 +56,30 @@ public class BookTest {
 
                     }
                     System.out.println("******* Books added successfully!! ******");
+                    break;
+
+                case 2:
+                    System.out.println("*********** 2. Update Books ***********");
+                    if(count > 0){
+                        System.out.print("Enter Book ID: ");
+                        BookID = scan.nextInt();
+                        for(int i=0; i<count; i++){
+                            if (BookArray[i]!=null&&BookID == BookArray[i].getBookID()) {
+                                System.out.println("Book found");
+                                System.out.print("Enter Book ID: ");
+                                BookID = scan.nextInt();
+                                System.out.print("Enter Book Name: ");
+                                BookName = scan.next();
+                                System.out.print("Enter Book Author: ");
+                                BookAuthor = scan.next();
+                                System.out.print("Enter Book Price: ");
+                                BookPrice = scan.nextDouble();
+                                BookArray[i] = new Book(BookID, BookName, BookAuthor, BookPrice);
+
+                                System.out.println("********** Successful entry **********");
+                            }
+                        }
+                    }
                     break;
 
                 case 3:
@@ -89,14 +114,14 @@ public class BookTest {
                 case 4:
                     System.out.println("*********** 4. List All Books ***********");
                     if (count > 0) {
-                        for (int i = 0; i < count; i++) {
+                        /*for (int i = 0; i < count; i++) {
                             if (BookArray[i] == null) {
                                 nullCount++;
                             }
                             if (nullCount > 0) {
                                 System.out.println("All books are deleted");
                             }
-                        }
+                        }*/
                         for (int i = 0; i < count; i++) {
 
                             if (BookArray[i] != null) {
@@ -115,7 +140,7 @@ public class BookTest {
                         System.out.print("Enter book ID: ");
                         BookID = scan.nextInt();
                         for (int i = 0; i < count; i++) {
-                            if (BookID == BookArray[i].getBookID()) {
+                            if (BookArray[i]!=null && BookID == BookArray[i].getBookID()) {
                                 System.out.println("Book found");
                                 System.out.println(BookArray[i]);
                             } else {
